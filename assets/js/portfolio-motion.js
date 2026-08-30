@@ -8,14 +8,17 @@ const observer = new IntersectionObserver(entries => {
 reveals.forEach(element => observer.observe(element));
 
 if (!reducedMotion) {
-  const parallaxItems = [...document.querySelectorAll('[data-shift]')];
+  const heroLines = [...document.querySelectorAll('.hero-title__line')];
   const hero = document.querySelector('#hero');
   let heroVisible = true;
   let scheduled = false;
   const render = () => {
     if (!heroVisible) { scheduled = false; return; }
-    const offset = Math.min(scrollY, innerHeight * 1.25);
-    for (const item of parallaxItems) item.style.transform = `translate3d(${offset * Number(item.dataset.shift)}px, 0, 0)`;
+    const offset = Math.min(Math.max(scrollY, 0), innerHeight * 1.15);
+    heroLines.forEach((line, index) => {
+      const direction = index % 2 === 0 ? -1 : 1;
+      line.style.transform = `translate3d(${direction * offset * 0.18}px, 0, 0)`;
+    });
     scheduled = false;
   };
   const heroObserver = new IntersectionObserver(entries => {
