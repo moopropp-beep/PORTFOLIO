@@ -1,4 +1,5 @@
 const rail = document.querySelector('[data-idea-rail]');
+const ideasSection = document.querySelector('#ideas');
 const previous = document.querySelector('[data-rail-prev]');
 const next = document.querySelector('[data-rail-next]');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -43,4 +44,18 @@ if (rail) {
   rail.addEventListener('click', event => {
     if (wasDragged) { event.preventDefault(); event.stopPropagation(); wasDragged = false; }
   }, true);
+
+  // Keep the image archive in place while the wheel advances its cards horizontally.
+  // At either edge we release the wheel so the page can continue vertically.
+  ideasSection?.addEventListener('wheel', event => {
+    if (event.ctrlKey || event.deltaY === 0 || matchMedia('(max-width: 900px)').matches) return;
+    const maxScroll = rail.scrollWidth - rail.clientWidth;
+    if (maxScroll <= 0) return;
+    const atStart = rail.scrollLeft <= 1;
+    const atEnd = rail.scrollLeft >= maxScroll - 1;
+    const movingDown = event.deltaY > 0;
+    if ((movingDown && atEnd) || (!movingDown && atStart)) return;
+    event.preventDefault();
+    rail.scrollBy({ left: event.deltaY, behavior: reducedMotion ? 'auto' : 'smooth' });
+  }, { passive: false });
 }
