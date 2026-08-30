@@ -48,7 +48,10 @@ if (rail) {
   // Keep the image archive in place while the wheel advances its cards horizontally.
   // At either edge we release the wheel so the page can continue vertically.
   const handleWheel = event => {
-    if (!ideasSection || !ideasSection.contains(event.target)) return;
+    if (!ideasSection) return;
+    const railRect = rail.getBoundingClientRect();
+    const viewportActive = railRect.top <= innerHeight * .75 && railRect.bottom >= innerHeight * .25;
+    if (!viewportActive) return;
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
     if (event.ctrlKey || delta === 0 || matchMedia('(max-width: 900px)').matches) return;
     const maxScroll = rail.scrollWidth - rail.clientWidth;
