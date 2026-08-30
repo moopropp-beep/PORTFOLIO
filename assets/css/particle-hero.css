@@ -1,0 +1,274 @@
+.top {
+  border-bottom: 0;
+  background: rgba(0, 0, 0, .9);
+  color: #fff;
+}
+
+.top .nav {
+  color: #969696;
+}
+
+.top .nav a:hover {
+  color: #fff;
+}
+
+.particle-hero {
+  min-height: calc(100svh - 76px);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 73% 46%, #202020 0%, #0a0a0a 28%, #030303 58%, #000 100%);
+  color: #fff;
+}
+
+.particle-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  width: 47%;
+  min-height: calc(100svh - 76px);
+  padding: clamp(100px, 14vh, 170px) 0 82px 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+  transform-origin: 0 0;
+  transition: transform 650ms cubic-bezier(.2, .8, .2, 1), opacity 650ms ease;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-second-act {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(.84);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.question-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  max-width: 76vw;
+  color: #fff;
+  font-size: clamp(58px, 9.4vw, 148px);
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: -.085em;
+  white-space: nowrap;
+}
+
+.question-marks {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding-right: .42em;
+  letter-spacing: -.15em;
+  white-space: nowrap;
+}
+
+.question-mark {
+  position: relative;
+  display: inline-block;
+  will-change: transform;
+  transform-origin: 50% 90%;
+}
+
+.question-mark[data-index="0"] {
+  z-index: 3;
+}
+
+.question-mark[data-index="1"] {
+  z-index: 2;
+}
+
+.question-mark[data-index="2"] {
+  z-index: 1;
+}
+
+.particle-hero.second-act-active .hero-copy {
+  opacity: .36;
+  transform: translate(1vw, -8vh) scale(.32);
+}
+
+.particle-hero.second-act-active .hero-second-act {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero-kicker {
+  margin: 0 0 26px;
+  color: #8d8d8d;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .17em;
+}
+
+.particle-hero h1 {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(46px, 5.3vw, 82px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -.06em;
+}
+
+.particle-hero h1 span {
+  display: block;
+  white-space: nowrap;
+}
+
+.particle-hero + .archive {
+  overflow: hidden;
+}
+
+.hero-role {
+  margin: 34px 0 0;
+  color: #aaa;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: .035em;
+}
+
+.particle-stage {
+  position: absolute;
+  inset: 0 0 0 40%;
+  z-index: 1;
+}
+
+#particleCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.particle-name-fallback {
+  display: block;
+  position: absolute;
+  right: 5vw;
+  bottom: 6vh;
+  color: #fff;
+  font-size: clamp(22px, 2.1vw, 32px);
+  font-weight: 600;
+  letter-spacing: .1em;
+}
+
+.particle-stage.particle-ready .particle-name-fallback {
+  display: none;
+}
+
+.hero-scroll {
+  position: absolute;
+  z-index: 3;
+  left: 5vw;
+  bottom: 5vh;
+  color: #777;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  transition: color .25s ease;
+}
+
+.hero-scroll:hover {
+  color: #fff;
+}
+
+@media (max-width: 800px) {
+  .particle-hero {
+    min-height: 100svh;
+    background: radial-gradient(ellipse at 62% 70%, #1d1d1d 0%, #070707 36%, #000 75%);
+  }
+
+  .hero-copy {
+    width: 100%;
+    min-height: 100svh;
+    justify-content: flex-start;
+    padding: 92px 20px 52vh;
+  }
+
+  .particle-hero h1 {
+    font-size: clamp(40px, 11.6vw, 62px);
+  }
+
+  .hero-role {
+    margin-top: 24px;
+  }
+
+  .particle-stage {
+    inset: 41% -12% 1% -8%;
+  }
+
+  .hero-scroll {
+    left: 20px;
+    bottom: 22px;
+  }
+
+  .particle-name-fallback {
+    right: 20px;
+    bottom: 24px;
+  }
+
+  .question-display {
+    max-width: 88vw;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: clamp(54px, 18vw, 92px);
+  }
+
+  .question-phrase {
+    white-space: normal;
+  }
+
+  .question-marks {
+    margin-left: auto;
+  }
+
+  .particle-hero.second-act-active .hero-copy {
+    transform: translate(0, -3vh) scale(.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #particleCanvas {
+    display: none;
+  }
+
+  .particle-name-fallback {
+    display: block;
+  }
+
+  .particle-stage.particle-ready .particle-name-fallback {
+    display: block;
+  }
+
+  .hero-copy,
+  .hero-second-act {
+    transition: none;
+  }
+}

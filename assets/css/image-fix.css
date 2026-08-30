@@ -1,0 +1,17 @@
+.flagship-media img {
+  width: 100%;
+  height: auto;
+}
+
+.idea-card__question { margin: 26px 0 0; color: #aaa; font-size: 19px; line-height: 1.35; max-width: 90%; }
+.idea-card__index { font-size: 12px; }
+.idea-card__media.has-image img { object-fit: contain; background: #111; }
+.idea-card h3 { margin: 65px 0; font-size: clamp(45px, 5vw, 78px); line-height: .92; }
+.idea-card--new h3 { margin: 34px 0 65px; }
+.idea-card--inspiration { min-height: 420px; }
+.idea-card--inspiration h3 { margin: 32px 0 58px; }
+.ideas--inspiration { background: #0a0a0a; }
+
+.case-modules summary { position: relative; padding-right: 130px; }
+.case-modules summary::after { content: 'OPEN ↗'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: #777; font: 700 11px/1 Arial, sans-serif; letter-spacing: .08em; transition: color .2s ease, transform .2s ease; }
+.case-modules summary:hover::after, .case-modules details[open] summary::after { color: var(--red); transform: translateY(-50%) translateX(-4px); }
