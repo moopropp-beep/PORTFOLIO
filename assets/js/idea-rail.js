@@ -48,14 +48,15 @@ if (rail) {
   // Keep the image archive in place while the wheel advances its cards horizontally.
   // At either edge we release the wheel so the page can continue vertically.
   ideasSection?.addEventListener('wheel', event => {
-    if (event.ctrlKey || event.deltaY === 0 || matchMedia('(max-width: 900px)').matches) return;
+    const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    if (event.ctrlKey || delta === 0 || matchMedia('(max-width: 900px)').matches) return;
     const maxScroll = rail.scrollWidth - rail.clientWidth;
     if (maxScroll <= 0) return;
     const atStart = rail.scrollLeft <= 1;
     const atEnd = rail.scrollLeft >= maxScroll - 1;
-    const movingDown = event.deltaY > 0;
+    const movingDown = delta > 0;
     if ((movingDown && atEnd) || (!movingDown && atStart)) return;
     event.preventDefault();
-    rail.scrollBy({ left: event.deltaY, behavior: reducedMotion ? 'auto' : 'smooth' });
+    rail.scrollLeft += delta * 1.35;
   }, { passive: false });
 }
