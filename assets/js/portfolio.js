@@ -2,7 +2,7 @@ import { flagshipCase, ideas } from './ideas-data.js';
 import { extractScriptSections, renderScriptSection } from './case-script.js';
 
 const contactBlock = document.querySelector('#about .about-copy p:last-child');
-if (contactBlock) contactBlock.innerHTML = 'CONTACT<br><a href="mailto:1463115889@qq.com">1463115889@qq.com</a><br><a href="tel:17686417617">176 8641 7617</a>';
+if (contactBlock) contactBlock.innerHTML = 'CONTACT<br><a href="mailto:moopropp@gmail.com">moopropp@gmail.com</a><br><a href="tel:17686417617">176 8641 7617</a>';
 
 const imageIdeas = ideas.filter(idea => idea.image);
 const inspirationIdeas = ideas.filter(idea => !idea.image);
