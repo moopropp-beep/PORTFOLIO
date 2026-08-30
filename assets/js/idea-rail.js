@@ -47,7 +47,8 @@ if (rail) {
 
   // Keep the image archive in place while the wheel advances its cards horizontally.
   // At either edge we release the wheel so the page can continue vertically.
-  ideasSection?.addEventListener('wheel', event => {
+  const handleWheel = event => {
+    if (!ideasSection || !ideasSection.contains(event.target)) return;
     const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
     if (event.ctrlKey || delta === 0 || matchMedia('(max-width: 900px)').matches) return;
     const maxScroll = rail.scrollWidth - rail.clientWidth;
@@ -58,5 +59,7 @@ if (rail) {
     if ((movingDown && atEnd) || (!movingDown && atStart)) return;
     event.preventDefault();
     rail.scrollLeft += delta * 1.35;
-  }, { passive: false });
+  };
+  // Capture before the browser's native scroll containers process the wheel.
+  window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
 }
