@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>《赛博电子厂》｜完整视频文字稿</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #050505; color: #e9e7e2; font-family: Arial, "Microsoft YaHei", sans-serif; }
+      main { max-width: 1100px; margin: 0 auto; padding: 70px 7vw 120px; }
+      a { color: #ff1f2d; }
+      .back { font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+      .warning { margin: 40px 0 0; color: #8e8b87; font-size: 12px; }
+      .script { margin-top: 55px; font-size: 18px; line-height: 1.8; }
+      .script h4 { font-size: clamp(28px, 4vw, 48px); line-height: 1.18; margin: 65px 0 20px; color: #ff1f2d; }
+      .script p { margin: 0 0 22px; }
+      .script strong { color: #fff; }
+      .script ul { padding-left: 1.4em; }
+      .script li { margin: 8px 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="../index.html#ai-annotation">← BACK TO CASE</a>
+      <p class="warning">标题可能造成部分人群不适，因此只作为灵感记录。</p>
+      <div id="script" class="script">正在载入文字稿…</div>
+    </main>
+    <script type="module">
+      import { renderScriptSection } from '../assets/js/case-script.js';
+      const target = document.querySelector('#script');
+      fetch('ai-annotation-script.md')
+        .then(response => {
+          if (!response.ok) throw new Error(response.status);
+          return response.text();
+        })
+        .then(markdown => {
+          target.innerHTML = renderScriptSection(markdown.replace(/^# /gm, '## '));
+        })
+        .catch(() => {
+          target.textContent = '文字稿载入失败，请返回案例页重试。';
+        });
+    </script>
+  </body>
+</html>
