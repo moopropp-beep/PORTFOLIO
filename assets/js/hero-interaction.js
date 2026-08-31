@@ -16,6 +16,7 @@ if (hero && canvas && cursor) {
   let height = 0;
   const spacing = 60;
   const radius = 350;
+  const baseAlpha = 0.2;
 
   const resize = () => {
     const bounds = hero.getBoundingClientRect();
@@ -41,7 +42,9 @@ if (hero && canvas && cursor) {
     last = time;
     pulse = Math.max(0, pulse - dt / 0.7);
     context.clearRect(0, 0, width, height);
-    context.fillStyle = 'rgba(242, 241, 238, 0.16)';
+    context.fillStyle = '#f2f1ee';
+    context.shadowColor = 'rgba(145, 205, 255, 0.75)';
+    context.shadowBlur = 7;
     for (let y = -spacing; y < height + spacing; y += spacing) {
       for (let x = -spacing; x < width + spacing; x += spacing) {
         const dx = x - pointer.x;
@@ -54,14 +57,15 @@ if (hero && canvas && cursor) {
         const offset = eased * 16 + burst * 22;
         const px = x + Math.cos(angle) * offset;
         const py = y + Math.sin(angle) * offset;
-        const alpha = 0.08 + eased * 0.22 + burst * 0.18;
+        const alpha = baseAlpha + eased * 0.38 + burst * 0.28;
         context.globalAlpha = alpha;
         context.beginPath();
-        context.arc(px, py, 1.25 + eased * 0.8, 0, Math.PI * 2);
+        context.arc(px, py, 1.8 + eased * 1.15, 0, Math.PI * 2);
         context.fill();
       }
     }
     context.globalAlpha = 1;
+    context.shadowBlur = 0;
     mouse.x += (mouse.tx - mouse.x) * Math.min(1, dt * 12);
     mouse.y += (mouse.ty - mouse.y) * Math.min(1, dt * 12);
     cursor.style.transform = `translate3d(${mouse.x - 16}px, ${mouse.y - 16}px, 0) scale(${mouse.down ? 0.7 : cursor.dataset.hover === 'true' ? 2.8 : 1})`;

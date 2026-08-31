@@ -76,23 +76,26 @@ button {
   place-items: center;
   overflow: hidden;
 }
-.hero-dot-grid,
-.hero-glass-overlay {
+.hero-dot-grid {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
 }
-.hero-dot-grid { z-index: 0; opacity: 0.9; }
+.hero-dot-grid { z-index: 1; opacity: 1; }
 .hero-glass-overlay {
-  z-index: 3;
+  position: fixed;
+  z-index: 12;
   inset: 0 0 auto;
-  height: 120px;
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.82), rgba(5, 5, 5, 0));
-  -webkit-backdrop-filter: blur(28px);
-  backdrop-filter: blur(28px);
-  mask-image: linear-gradient(180deg, #000 0 45%, transparent 100%);
+  width: 100%;
+  height: 118px;
+  pointer-events: none;
+  background: rgba(15, 15, 15, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18), inset 0 -1px rgba(255, 255, 255, 0.035);
+  -webkit-backdrop-filter: blur(42px) saturate(140%);
+  backdrop-filter: blur(42px) saturate(140%);
 }
 #hero-cursor {
   position: fixed;
@@ -109,6 +112,7 @@ button {
 #hero-cursor.is-down { scale: 0.72; }
 .hero-object {
   position: absolute;
+  z-index: 0;
   width: min(73vw, 1150px);
   height: 72vh;
   filter: contrast(140%);
@@ -193,6 +197,7 @@ button {
 }
 .hero-corner {
   position: absolute;
+  z-index: 2;
   bottom: 38px;
   font-size: 11px;
   font-weight: 800;
@@ -623,8 +628,8 @@ html.motion-ready .reveal.is-visible {
   #hero-cursor { display: none; }
   .hero-glass-overlay {
     height: 100px;
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(30px) saturate(135%);
+    backdrop-filter: blur(30px) saturate(135%);
   }
   .site-header {
     grid-template-columns: 1fr 1fr;
