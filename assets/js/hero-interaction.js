@@ -14,8 +14,8 @@ if (hero && canvas && cursor) {
   let pulse = 0;
   let width = 0;
   let height = 0;
-  const spacing = 60;
-  const radius = 350;
+  const spacing = 56;
+  const radius = 180;
   const baseAlpha = 0.2;
 
   const resize = () => {
@@ -43,8 +43,20 @@ if (hero && canvas && cursor) {
     pulse = Math.max(0, pulse - dt / 0.7);
     context.clearRect(0, 0, width, height);
     context.fillStyle = '#f2f1ee';
-    context.shadowColor = 'rgba(145, 205, 255, 0.75)';
-    context.shadowBlur = 7;
+    context.strokeStyle = 'rgba(160, 205, 235, 0.09)';
+    context.lineWidth = 0.5;
+    context.beginPath();
+    for (let y = 0; y <= height; y += spacing) {
+      context.moveTo(0, y);
+      context.lineTo(width, y);
+    }
+    for (let x = 0; x <= width; x += spacing) {
+      context.moveTo(x, 0);
+      context.lineTo(x, height);
+    }
+    context.stroke();
+    context.shadowColor = 'rgba(145, 205, 255, 0.7)';
+    context.shadowBlur = 5;
     for (let y = -spacing; y < height + spacing; y += spacing) {
       for (let x = -spacing; x < width + spacing; x += spacing) {
         const dx = x - pointer.x;
@@ -57,7 +69,7 @@ if (hero && canvas && cursor) {
         const offset = eased * 16 + burst * 22;
         const px = x + Math.cos(angle) * offset;
         const py = y + Math.sin(angle) * offset;
-        const alpha = baseAlpha + eased * 0.38 + burst * 0.28;
+        const alpha = baseAlpha * 0.24 + eased * 0.62 + burst * 0.28;
         context.globalAlpha = alpha;
         context.beginPath();
         context.arc(px, py, 1.8 + eased * 1.15, 0, Math.PI * 2);
