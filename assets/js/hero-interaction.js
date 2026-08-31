@@ -1,13 +1,12 @@
 const hero = document.querySelector('#hero');
 const canvas = document.querySelector('#hero-dot-grid');
-const cursor = document.querySelector('#hero-cursor');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const coarsePointer = window.matchMedia('(pointer: coarse)');
 
-if (hero && canvas && cursor) {
+if (hero && canvas) {
   const context = canvas.getContext('2d');
   const pointer = { x: -9999, y: -9999, active: false };
-  const mouse = { x: -100, y: -100, tx: -100, ty: -100, down: 0 };
+  const mouse = { tx: -100, ty: -100 };
   let frame = 0;
   let visible = true;
   let last = 0;
@@ -78,9 +77,6 @@ if (hero && canvas && cursor) {
     }
     context.globalAlpha = 1;
     context.shadowBlur = 0;
-    mouse.x += (mouse.tx - mouse.x) * Math.min(1, dt * 12);
-    mouse.y += (mouse.ty - mouse.y) * Math.min(1, dt * 12);
-    cursor.style.transform = `translate3d(${mouse.x - 16}px, ${mouse.y - 16}px, 0) scale(${mouse.down ? 0.7 : cursor.dataset.hover === 'true' ? 2.8 : 1})`;
   };
 
   const onMove = (event) => {
@@ -90,17 +86,13 @@ if (hero && canvas && cursor) {
     pointer.active = true;
     mouse.tx = event.clientX;
     mouse.ty = event.clientY;
-    cursor.hidden = false;
   };
   const onLeave = () => {
     pointer.x = -9999;
     pointer.y = -9999;
     pointer.active = false;
-    cursor.hidden = true;
   };
-  const onDown = () => { mouse.down = 1; pulse = 1; cursor.classList.add('is-down'); };
-  const onUp = () => { mouse.down = 0; cursor.classList.remove('is-down'); };
-  const onHover = (event) => { cursor.dataset.hover = event.target.closest('a, button, .idea-card') ? 'true' : 'false'; };
+  const onDown = () => { pulse = 1; };
 
   const observer = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
@@ -116,8 +108,6 @@ if (hero && canvas && cursor) {
   hero.addEventListener('pointermove', onMove, { passive: true });
   hero.addEventListener('pointerleave', onLeave, { passive: true });
   hero.addEventListener('pointerdown', onDown, { passive: true });
-  window.addEventListener('pointerup', onUp, { passive: true });
-  hero.addEventListener('pointerover', onHover, { passive: true });
   reducedMotion.addEventListener('change', motionChange);
   coarsePointer.addEventListener('change', pointerChange);
   if (!reducedMotion.matches && !coarsePointer.matches) frame = requestAnimationFrame(draw);
