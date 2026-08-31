@@ -3,6 +3,7 @@ if (folds.length) {
   const activate = active => {
     for (const fold of folds) {
       fold.open = fold === active;
+      fold.classList.toggle('is-keywords-only', fold === active);
       const summary = fold.querySelector('summary');
       summary?.setAttribute('aria-label', `${summary.innerText.replace(/[＋×]/g, '').trim()}，${fold.open ? '当前已自动展开' : '继续滚动自动展开'}`);
     }
